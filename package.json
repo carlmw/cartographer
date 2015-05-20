@@ -1,0 +1,19 @@
+{
+  "name": "Cartographer",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "chai-things": "^0.2.0",
+    "connect": "^3.3.5",
+    "mocha": "^2.2.5",
+    "serve-static": "^1.9.3"
+  },
+  "dependencies": {
+    "html-tokenize": "^1.2.5",
+    "through2": "^0.6.5"
+  }
+}
