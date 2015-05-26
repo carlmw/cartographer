@@ -27,14 +27,14 @@ function findResourcesIn(string, done) {
 
 describe('resourceFinder', function () {
   it('finds stylesheets', function (done) {
-    findResourcesIn('<link rel="stylesheet" href="boop.css" />', function (assets) {
+    findResourcesIn('<link rel="stylesheet" href="boop.css" class="foo" />', function (assets) {
       expect(assets).to.contain.something.that.eqls(['stylesheet', 'boop.css']);
       done();
     });
   });
 
   it('finds scripts', function (done) {
-    findResourcesIn('<script src="app.js"></script>', function (assets) {
+    findResourcesIn('<script src="app.js" type="application/javascript"></script>', function (assets) {
       expect(assets).to.contain.something.that.eqls(['script', 'app.js']);
       done();
     });
