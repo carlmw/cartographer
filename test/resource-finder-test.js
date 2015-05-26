@@ -53,4 +53,18 @@ describe('resourceFinder', function () {
       done();
     });
   });
+
+  it('finds anchors', function (done) {
+    findResourcesIn('<a href="/foo.html">', function (assets) {
+      expect(assets).to.contain.something.that.eqls(['anchor', '/foo.html']);
+      done();
+    });
+  });
+
+  it('ignores anchors with no href attribute', function (done) {
+    findResourcesIn('<a name="bar">', function (assets) {
+      expect(assets.length).to.equal(0);
+      done();
+    });
+  });
 });
