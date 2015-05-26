@@ -5,9 +5,9 @@ var resourceFinder = require('./lib/resource-finder');
 var through = require('through2');
 
 function discover(rootUrl) {
-  var rs = through.obj(),
-    searched = [],
-    queue = 0;
+  var rs = through.obj();
+  var searched = [];
+  var queue = 0;
 
   function findAssets(targetUrl) {
     queue++;
