@@ -26,10 +26,12 @@ function discover(rootUrl) {
         var assetUrl = url.resolve(targetUrl, asset[1]);
         assetUrl = url.parse(assetUrl);
 
+        // The link does not reside on the same host so skip it
         if (target.host !== assetUrl.host) {
           return;
         }
 
+        // If we haven't scrapped this page already then continue
         if (searched.indexOf(assetUrl.path) === -1) {
           findAssets(assetUrl.href);
         }
@@ -39,6 +41,7 @@ function discover(rootUrl) {
     })
     .on('end', function () {
       queue--;
+      // If all of our requests are complete close the stream
       if (0 === queue) {
         rs.push(null);
       }
