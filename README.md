@@ -16,6 +16,14 @@ A simple web crawler for static assets
 
 Given a URL `discover` will fetch the given page and search for stylesheets and scripts within the returned HTML.
 
+### Example
+
+```javascript
+Cartographer.discover(pageUrl).on('data', function (data) {
+  # => data = [type, assetPath, pageUrl];
+});
+```
+
 # Using the CLI
 
 `./bin/cmd.js http://example.com/foo.html`
