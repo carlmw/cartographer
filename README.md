@@ -20,6 +20,7 @@ Given a URL `discover` will fetch the given page and search for stylesheets and 
 
 - Recurse into related pages
 - Ignore external links
-- Filter out errant assets
 - Better error handling
+- Better asset matching
+  - Would be great to find a library that does this far better than my RegExps
 - CLI
