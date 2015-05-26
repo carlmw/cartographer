@@ -52,4 +52,4 @@ function discover(rootUrl) {
   return rs;
 }
 
-module.exports = { discover };
+module.exports = { discover: discover };
