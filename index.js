@@ -9,6 +9,8 @@ function discover(rootUrl) {
     queue = 0;
 
   function findAssets(targetUrl) {
+    var path = url.parse(targetUrl).path;
+
     queue++;
     var assets = request(targetUrl)
     .pipe(tokenize())
@@ -16,7 +18,7 @@ function discover(rootUrl) {
 
     assets
     .on('data', function (asset) {
-      rs.push(asset);
+      rs.push(asset.concat(path));
       if ('anchor' === asset[0]) {
         var assetUrl = url.resolve(targetUrl, asset[1]);
         findAssets(assetUrl);
