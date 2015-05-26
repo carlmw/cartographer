@@ -2,8 +2,12 @@
 
 A simple web crawler for static assets
 
-# Installation
+Tested on Node v0.12.4 and io.js 2.10 (I haven't tested on older versions but it might be alright 😓)
 
+# Installation
+    mkdir cartographer
+    cd cartographer
+    git clone git@github.com:carlmw/cartographer.git .
     npm install
 
 # Running the tests
@@ -14,13 +18,13 @@ A simple web crawler for static assets
 
 ## Cartographer.discover(pageUrl);
 
-Given a URL `discover` will fetch the given page and search for stylesheets and scripts within the returned HTML.
+Given a URL `discover` will fetch the page and search for stylesheets and scripts within the returned HTML.
 
 ### Example
 
 ```javascript
-Cartographer.discover(pageUrl).on('data', function (data) {
-  # => data = [type, assetPath, pageUrl];
+Cartographer.discover(pageUrl).on('data', function (asset) {
+  # => asset = [type, assetPath, pageUrl];
 });
 ```
 
@@ -28,7 +32,7 @@ Cartographer.discover(pageUrl).on('data', function (data) {
 
 `./bin/cmd.js http://example.com/foo.html`
 
-When the module is installed globally, Cartopgraher should be added to your path:
+When the module is installed globally, Cartographer should be added to your path:
 
 `cartographer http://example.com/foo.html`
 
@@ -37,6 +41,7 @@ When the module is installed globally, Cartopgraher should be added to your path
 - Better error handling
 - Better asset matching
   - Would be great to find a library that does this far better than my RegExps
+- Extract the recursion and remove state
 
 # My approach
 
@@ -49,7 +54,7 @@ I tried:
 
 Given some more time i'd probably do some benchmarking but I decided to go with trumpet because substack is pretty legendary and the htmlparser2 API seemed pretty clunky.
 
-It soon became apparent that trumpet didn't do exactly what I wanted it to. It is engineered for transforming HTML, wheras I wanted to just select certain tags and pipe some attributes through.
+It soon became apparent that trumpet didn't do exactly what I wanted it to. It is engineered for transforming HTML, whereas I wanted to just select certain tags and pipe some attributes through.
 
 Spelunking through trumpet's `package.json` I found [html-tokenize](https://github.com/substack/html-tokenize) (also by substack ✊), given a stream it will pipe out a stream of tokenized HTML. I decided to use this and filter down to the interesting tags myself.
 
