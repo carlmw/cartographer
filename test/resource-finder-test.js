@@ -67,4 +67,11 @@ describe('resourceFinder', function () {
       done();
     });
   });
+
+  it('ignores anorexic anchors', function (done) {
+    findResourcesIn('<a href="">', function (assets) {
+      expect(assets.length).to.equal(0);
+      done();
+    });
+  });
 });
