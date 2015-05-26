@@ -9,20 +9,27 @@ function discover(rootUrl) {
     queue = 0;
 
   function findAssets(targetUrl) {
-    var path = url.parse(targetUrl).path;
-
     queue++;
+
+    var target = url.parse(targetUrl);
     var assets = request(targetUrl)
     .pipe(tokenize())
     .pipe(resourceFinder());
 
+
     assets
     .on('data', function (asset) {
-      rs.push(asset.concat(path));
       if ('anchor' === asset[0]) {
         var assetUrl = url.resolve(targetUrl, asset[1]);
+
+        if (target.host !== url.parse(assetUrl).host) {
+          return;
+        }
+
         findAssets(assetUrl);
       }
+
+      rs.push(asset.concat(target.path));
     })
     .on('end', function () {
       queue--;

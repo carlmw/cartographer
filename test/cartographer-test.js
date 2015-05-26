@@ -42,4 +42,11 @@ describe('Cartographer', function () {
       done();
     });
   });
+
+  it('ignores anchors for other hosts', function (done) {
+    findAssets('http://localhost:8001/other-origin.html', function (assets) {
+      expect(assets.length).to.eql(0);
+      done();
+    });
+  });
 });
