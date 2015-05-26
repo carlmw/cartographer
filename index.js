@@ -6,6 +6,7 @@ var through = require('through2');
 
 function discover(rootUrl) {
   var rs = through.obj(),
+    searched = [],
     queue = 0;
 
   function findAssets(targetUrl) {
@@ -16,17 +17,22 @@ function discover(rootUrl) {
     .pipe(tokenize())
     .pipe(resourceFinder());
 
+    // Keep a stash of the pages we've already visited
+    searched.push(target.path);
 
     assets
     .on('data', function (asset) {
       if ('anchor' === asset[0]) {
         var assetUrl = url.resolve(targetUrl, asset[1]);
+        assetUrl = url.parse(assetUrl);
 
-        if (target.host !== url.parse(assetUrl).host) {
+        if (target.host !== assetUrl.host) {
           return;
         }
 
-        findAssets(assetUrl);
+        if (searched.indexOf(assetUrl.path) === -1) {
+          findAssets(assetUrl.href);
+        }
       }
 
       rs.push(asset.concat(target.path));

@@ -49,4 +49,11 @@ describe('Cartographer', function () {
       done();
     });
   });
+
+  it('does not search the same page twice', function (done) {
+    findAssets('http://localhost:8001/circular-link.html', function (assets) {
+      expect(assets.length).to.eql(2);
+      done();
+    });
+  });
 });
